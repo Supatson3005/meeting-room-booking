@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ระบบเช่าห้องประชุม</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(to bottom, #d32f2f, #ffeb3b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    img.logo {
+      width: 150px;
+      margin: 0 auto;
+      display: block;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, select {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+    .button {
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: linear-gradient(to right, #d32f2f, #ffeb3b);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .message {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: green;
+      opacity: 0;
+      transition: opacity 0.5s ease-in;
+    }
+    .message.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/441638174_456686417107437_8991519511546636952_n.png?stp=dst-png_s2048x2048&_nc_cat=105&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=eFdyXoK5RogQ7kNvgEdHk0G&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdXa9bGdu9o0-JJPR8WVUgvOAlKpczQ0ADZRo6GnZ7B8aA&oe=668BB92D" alt="โลโก้มหาวิทยาลัย">
+    <h1>ระบบเช่าห้องประชุม ภายในมหาวิทยาลัยราชภัฏนครศรีธรรมราช</h1>
+
+    <form id="registerForm">
+      <input type="text" name="name" placeholder="ชื่อผู้เช่า" required>
+      <input type="text" name="phone" placeholder="หมายเลขโทรศัพท์" required>
+      <input type="text" name="password" placeholder="รหัสผ่าน (วันเดือนปีเกิด เช่น 05052535)" required>
+      <input type="text" name="position" placeholder="ตำแหน่งผู้เช่า" required>
+      <input type="text" name="department" placeholder="หน่วยงาน" required>
+      <button class="button" type="submit">สมัครสมาชิก</button>
+      <div id="registerMsg" class="message">สมัครสมาชิกแล้ว</div>
+    </form>
+
+    <hr/>
+
+    <form id="bookingForm">
+      <input type="text" name="login_phone" placeholder="หมายเลขโทรศัพท์ผู้เช่า" required>
+      <input type="text" name="login_password" placeholder="รหัสผ่าน (วันเดือนปีเกิด)" required>
+      <select name="room">
+        <option value="ห้องประชุม 1">ห้องประชุม 1</option>
+        <option value="ห้องประชุม 2">ห้องประชุม 2</option>
+      </select>
+      <input type="text" name="purpose" placeholder="จุดประสงค์การใช้ห้องประชุม" required>
+      <input type="date" name="date" required>
+      <input type="time" name="time" required>
+      <input type="text" name="participants" placeholder="จำนวนผู้เข้าร่วม" required>
+      <input type="text" name="chairs" placeholder="จำนวนเก้าอี้ที่ต้องการใช้งาน" required>
+      <input type="text" name="equipment" placeholder="สิ่งที่ต้องการใช้งาน" required>
+      <button class="button" type="submit">กดบันทึก</button>
+      <div id="bookingMsg" class="message">รอเจ้าหน้าที่ติดต่อกลับภายใน 1-2 วัน</div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+        method: 'POST',
+        body: new FormData(this)
+      }).then(res => res.text()).then(data => {
+        document.getElementById('registerMsg').classList.add('show');
+      });
+    });
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+        method: 'POST',
+        body: new FormData(this)
+      }).then(res => res.text()).then(data => {
+        document.getElementById('bookingMsg').classList.add('show');
+      });
+    });
+  </script>
+</body>
+</html>
